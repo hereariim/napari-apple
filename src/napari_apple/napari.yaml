@@ -14,15 +14,13 @@ contributions:
     - id: napari-apple.make_sample_data
       python_name: napari_apple._sample_data:make_sample_data
       title: Load sample data from Apple
-    - id: napari-apple.make_qwidget
-      python_name: napari_apple._widget:ExampleQWidget
-      title: Make example QWidget
-    - id: napari-apple.make_magic_widget
-      python_name: napari_apple._widget:example_magic_widget
-      title: Make example magic widget
-    - id: napari-apple.make_func_widget
-      python_name: napari_apple._widget:example_function_widget
-      title: Make example function widget
+
+    - id: napari-apple.model_detection
+      python_name: napari_apple._widget:do_model
+      title: Model detection
+    - id: napari-apple.image_selection
+      python_name: napari_apple._widget:do_image_select
+      title: Image selection
   readers:
     - command: napari-apple.get_reader
       accepts_directories: false
@@ -39,5 +37,8 @@ contributions:
       display_name: Apple
       key: unique_id.1
   widgets:
-    - command: napari-apple.make_qwidget
-      display_name: Example QWidget
+    - command: napari-apple.model_detection
+      display_name: Model detection
+    - command: napari-apple.image_selection
+      display_name: Image selection
+      

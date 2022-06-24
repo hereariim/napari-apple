@@ -1,46 +1,46 @@
-"""
-This module is an example of a barebones QWidget plugin for napari
-
-It implements the Widget specification.
-see: https://napari.org/plugins/guides.html?#widgets
-
-Replace code below according to your needs.
-"""
-from typing import TYPE_CHECKING
-
+from cv2 import imread
 from magicgui import magic_factory
 from qtpy.QtWidgets import QHBoxLayout, QPushButton, QWidget
+import cv2
+from napari.types import ImageData
+import os
+import numpy as np
+import skimage
+from skimage.transform import resize
+from napari.utils.notifications import show_info
+import pathlib
+import subprocess
 
-if TYPE_CHECKING:
-    import napari
+def do_object_detection(
+    layer) -> ImageData:
+    
+    path_image = str(layer).replace('\\','/')
+    os.chdir("/home/herearii/napari-apple/src/napari_apple/darknet")
+    subprocess.run(['./darknet','detect','cfg/yolov3.cfg','yolov3.weights',path_image])
+    
+    return skimage.io.imread("/home/herearii/napari-apple/src/napari_apple/darknet/predictions.jpg")[:,:,:3]
+
+def image_select(path_image) -> ImageData:
+    path_image = str(path_image).replace('\\','/')
+    imag = skimage.io.imread(path_image)[:,:,:3]
+    return imag
+
+@magic_factory(call_button="Run",filename={"label": "Pick a file:"})
+def do_image_select(
+    filename=pathlib.Path.home()) -> ImageData:
+    return image_select(filename)
+
+@magic_factory(call_button="Run",radio_option={
+        "widget_type": "RadioButtons",
+        "orientation": "horizontal",
+        "choices": [("Image", 1), ("Segmentation", 2)]
+    },filename={"label": "Pick a file:"})
+def do_model(
+    filename=pathlib.Path.home(), radio_option=1) -> ImageData:
+    show_info('Succes !')
+    if radio_option==1:
+        return image_select(filename)
+    elif radio_option==2:
+        return do_object_detection(filename)
 
 
-class ExampleQWidget(QWidget):
-    # your QWidget.__init__ can optionally request the napari viewer instance
-    # in one of two ways:
-    # 1. use a parameter called `napari_viewer`, as done here
-    # 2. use a type annotation of 'napari.viewer.Viewer' for any parameter
-    def __init__(self, napari_viewer):
-        super().__init__()
-        self.viewer = napari_viewer
-
-        btn = QPushButton("Click me!")
-        btn.clicked.connect(self._on_click)
-
-        self.setLayout(QHBoxLayout())
-        self.layout().addWidget(btn)
-
-    def _on_click(self):
-        print("napari has", len(self.viewer.layers), "layers")
-
-
-@magic_factory
-def example_magic_widget(img_layer: "napari.layers.Image"):
-    print(f"you have selected {img_layer}")
-
-
-# Uses the `autogenerate: true` flag in the plugin manifest
-# to indicate it should be wrapped as a magicgui to autogenerate
-# a widget.
-def example_function_widget(img_layer: "napari.layers.Image"):
-    print(f"you have selected {img_layer}")
