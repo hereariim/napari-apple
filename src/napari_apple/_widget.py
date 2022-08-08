@@ -10,15 +10,16 @@ from skimage.transform import resize
 from napari.utils.notifications import show_info
 import pathlib
 import subprocess
+import napari_apple.path as paths
 
 def do_object_detection(
     layer) -> ImageData:
     
     path_image = str(layer).replace('\\','/')
-    os.chdir("/home/herearii/napari-apple/src/napari_apple/darknet")
+    os.chdir(os.path.join(paths.get_models_dir(),"darknet"))
     subprocess.run(['./darknet','detect','cfg/yolov3.cfg','yolov3.weights',path_image])
     
-    return skimage.io.imread("/home/herearii/napari-apple/src/napari_apple/darknet/predictions.jpg")[:,:,:3]
+    return skimage.io.imread(os.path.join(paths.get_models_dir(),"darknet\\predictions.jpg"))[:,:,:3]
 
 def image_select(path_image) -> ImageData:
     path_image = str(path_image).replace('\\','/')
