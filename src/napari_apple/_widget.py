@@ -31,17 +31,9 @@ def do_image_select(
     filename=pathlib.Path.cwd()) -> ImageData:
     return image_select(filename)
 
-@magic_factory(call_button="Run",radio_option={
-        "widget_type": "RadioButtons",
-        "orientation": "horizontal",
-        "choices": [("Image", 1), ("Segmentation", 2)]
-    },filename={"label": "Pick a file:"})
-def do_model(
-    filename=pathlib.Path.cwd(), radio_option=1) -> ImageData:
-    show_info('Succes !')
-    if radio_option==1:
-        return image_select(filename)
-    elif radio_option==2:
-        return do_object_detection(filename)
+@magic_factory(call_button="Detection")
+def do_model(layer: ImageData) -> ImageData:
+    show_info('Running !')
+    return do_object_detection(filename)
 
 
