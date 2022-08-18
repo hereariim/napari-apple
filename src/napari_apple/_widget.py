@@ -19,7 +19,7 @@ def do_object_detection(
     os.chdir(os.path.join(paths.get_models_dir(),"darknet"))
     subprocess.run(['./darknet','detect','cfg/yolov3.cfg','yolov3.weights',path_image])
     
-    return skimage.io.imread(os.path.join(paths.get_models_dir(),"darknet\\predictions.jpg"))[:,:,:3]
+    return skimage.io.imread(os.path.join(paths.get_models_dir(),"darknet/predictions.jpg"))[:,:,:3]
 
 def image_select(path_image) -> ImageData:
     path_image = str(path_image).replace('\\','/')
