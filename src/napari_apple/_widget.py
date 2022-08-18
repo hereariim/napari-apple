@@ -28,7 +28,7 @@ def image_select(path_image) -> ImageData:
 
 @magic_factory(call_button="Run",filename={"label": "Pick a file:"})
 def do_image_select(
-    filename=pathlib.Path.home()) -> ImageData:
+    filename=pathlib.Path.cwd()) -> ImageData:
     return image_select(filename)
 
 @magic_factory(call_button="Run",radio_option={
@@ -37,7 +37,7 @@ def do_image_select(
         "choices": [("Image", 1), ("Segmentation", 2)]
     },filename={"label": "Pick a file:"})
 def do_model(
-    filename=pathlib.Path.home(), radio_option=1) -> ImageData:
+    filename=pathlib.Path.cwd(), radio_option=1) -> ImageData:
     show_info('Succes !')
     if radio_option==1:
         return image_select(filename)
