@@ -23,16 +23,27 @@ https://napari.org/plugins/index.html
 
 ## Installation
 
+Before you can operate the module, you must install the `napari-apple` module and Darknet on your machine.
+
+### Instruction for napari-module
+
 You can install `napari-apple` via [pip]:
 
     pip install napari-apple
-
-
 
 To install latest development version :
 
     pip install git+https://github.com/hereariim/napari-apple.git
 
+### Instruction Darknet
+
+Darknet is the module where the pre-trained YOLO model is located. You can install Darknet by running this command:
+
+    git clone https://github.com/pjreddie/darknet
+    cd darknet
+    make
+    
+When Darknet is installed, you have to put the weights of the apple detection model in the cfg subfolder. You find the weights in the weight-darknet folder. 
 
 ## Contributing
 
