@@ -23,7 +23,7 @@ https://napari.org/plugins/index.html
 
 ## Installation
 
-First, please note that this module **only works** on a Linux Ubuntu system.
+First, please note that this module **only works** on a Linux Ubuntu system. Indeed, the launch of the YOLO module is a command that is executed on a Linux Ubuntu system.
 
 Before you can operate the module, you must install the `napari-apple` module and Darknet on your machine.
 
