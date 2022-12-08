@@ -15,12 +15,9 @@ contributions:
       python_name: napari_apple._sample_data:make_sample_data
       title: Load sample data from Apple
 
-    - id: napari-apple.model_detection
-      python_name: napari_apple._widget:do_model
-      title: Model detection
-    - id: napari-apple.image_selection
-      python_name: napari_apple._widget:do_image_select
-      title: Image selection
+    - id: napari-apple.image_detection
+      python_name: napari_apple._widget:do_image_detection
+      title: Image detection
   readers:
     - command: napari-apple.get_reader
       accepts_directories: false
@@ -37,8 +34,6 @@ contributions:
       display_name: Apple
       key: unique_id.1
   widgets:
-    - command: napari-apple.model_detection
-      display_name: Model detection
-    - command: napari-apple.image_selection
-      display_name: Image selection
+    - command: napari-apple.image_detection
+      display_name: Image detection
       
