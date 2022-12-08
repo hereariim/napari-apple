@@ -1,0 +1,35 @@
+"""Setup for the python package.""" 
+from setuptools import setup, find_packages
+with open("README.md", "r", encoding="utf-8") as fh: 
+     long_description = fh.read() 
+setup(    
+    author="Herearii Metuarea",    
+    author_email="herearii.metuarea@gmail.com",
+    name='napari-apple', 
+    description='Detection of apple based on YOLOv4 model',  
+    version="0.0.2",    
+    long_description=long_description, 
+    long_description_content_type="text/markdown",  
+    url='https://github.com/hereariim/napari-apple', 
+    packages=find_packages(),
+    python_requires=">=3.8",
+    install_requires=['numpy',
+    'magicgui',
+    'qtpy',
+    'opencv-python-headless',
+    'scikit-image',
+    'napari'], 
+    classifiers=[ 'Development Status :: 2 - Pre-Alpha',
+                     'Framework :: napari',
+    'Intended Audience :: Developers',
+    'License :: OSI Approved :: BSD License',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3 :: Only',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Topic :: Software Development :: Testing',
+                ],
+     )
