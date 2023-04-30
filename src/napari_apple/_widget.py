@@ -14,6 +14,7 @@ import napari_apple.path as paths
 import pandas as pd
 from skimage.io import imread
 import re
+import sys
 
 def coordonee(path):
 
@@ -50,7 +51,10 @@ def do_object_detection(layer,path_darknet):
     f.close()
 
     # subprocess.run(['./darknet','detect',paths.get_cfg_file(),paths.get_weight_file(),path_image])
-    os.system('./darknet detector test '+paths.get_obj_data()+' '+paths.get_cfg_file()+' '+paths.get_weight_file()+' -ext_output '+path_image+' > '+paths.send_result())
+    if sys.platform=="linux":
+        os.system('./darknet detector test '+paths.get_obj_data()+' '+paths.get_cfg_file()+' '+paths.get_weight_file()+' -ext_output '+path_image+' > '+paths.send_result())
+    elif sys.platform=="win32":
+        os.system('darknet.exe detector test '+paths.get_obj_data()+' '+paths.get_cfg_file()+' '+paths.get_weight_file()+' -ext_output '+path_image+' > '+paths.send_result())
     
     path=paths.send_result()
     bbox_rects = coordonee(path)
