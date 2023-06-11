@@ -18,6 +18,10 @@ contributions:
     - id: napari-apple.image_detection
       python_name: napari_apple._widget:do_image_detection
       title: Image detection
+    - id: napari-apple.save_detection
+      python_name: napari_apple._widget:save_as_zip
+      title: Save
+      
   readers:
     - command: napari-apple.get_reader
       accepts_directories: false
@@ -36,4 +40,6 @@ contributions:
   widgets:
     - command: napari-apple.image_detection
       display_name: Image detection
+    - command: napari-apple.save_detection
+      display_name: Export data
       

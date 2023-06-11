@@ -1,0 +1,29 @@
+ GPU isn't used 
+mini_batch = 1, batch = 64, time_steps = 1, train = 0 
+nms_kind: greedynms (1), beta = 0.600000 
+nms_kind: greedynms (1), beta = 0.600000 
+
+ seen 64, trained: 166 K-images (2 Kilo-batches_64) 
+ Detection layer: 30 - type = 28 
+ Detection layer: 37 - type = 28 
+/home/g-laris89/Downloads/Fotolia_221387397_Subscription_XL-1.jpg: Predicted in 6767.973000 milli-seconds.
+apple: 46%	(left_x:    3   top_y:  131   width:  266   height:  202)
+apple: 31%	(left_x:   98   top_y:  126   width:  287   height:  212)
+apple: 27%	(left_x:  208   top_y:  171   width:  282   height:  194)
+apple: 26%	(left_x:  217   top_y:  351   width:  261   height:  188)
+apple: 41%	(left_x:  353   top_y:  707   width:  201   height:  187)
+apple: 38%	(left_x:  482   top_y:  709   width:  270   height:  187)
+apple: 25%	(left_x:  489   top_y:  522   width:  253   height:  201)
+apple: 30%	(left_x:  494   top_y:  443   width:  244   height:  216)
+apple: 53%	(left_x:  515   top_y:  427   width:  311   height:  180)
+apple: 29%	(left_x:  519   top_y:  561   width:  298   height:  196)
+apple: 62%	(left_x:  542   top_y:  745   width:  252   height:  183)
+apple: 32%	(left_x:  570   top_y:  451   width:  300   height:  204)
+apple: 26%	(left_x:  650   top_y:  486   width:  246   height:  203)
+apple: 54%	(left_x: 1037   top_y:  128   width:  125   height:  116)
+apple: 64%	(left_x: 1184   top_y:  570   width:  251   height:  179)
+apple: 32%	(left_x: 1190   top_y:  640   width:  239   height:  179)
+apple: 60%	(left_x: 1325   top_y:  525   width:  289   height:  198)
+apple: 29%	(left_x: 1354   top_y:  892   width:  229   height:  174)
+apple: 48%	(left_x: 1448   top_y:   -5   width:  123   height:   77)
+apple: 33%	(left_x: 1471   top_y:  198   width:  128   height:   55)

@@ -1,7 +1,7 @@
 from magicgui import magic_factory
 from qtpy.QtWidgets import QHBoxLayout, QPushButton, QWidget
 import typing
-from napari.types import ImageData
+from napari.types import ImageData, ShapesData
 import napari
 import os
 import numpy as np
@@ -14,6 +14,8 @@ import napari_apple.path as paths
 import pandas as pd
 from skimage.io import imread
 import re
+from qtpy.QtWidgets import QTableWidget, QTableWidgetItem, QGridLayout, QPushButton, QFileDialog, QWidget, QListWidget
+import sys
 
 def coordonee(path):
 
@@ -43,14 +45,18 @@ def do_object_detection(layer,path_darknet):
     path_yolov4 = paths.get_weight_file()
     print(path_image)
     print(path_yolov4)
-        
+    print(paths.get_obj_data())
     f = open(paths.get_obj_data(), "w")
     f.write("classes=1\n")
     f.write("names="+paths.get_obj_names())
     f.close()
 
     # subprocess.run(['./darknet','detect',paths.get_cfg_file(),paths.get_weight_file(),path_image])
-    os.system('./darknet detector test '+paths.get_obj_data()+' '+paths.get_cfg_file()+' '+paths.get_weight_file()+' -ext_output '+path_image+' > '+paths.send_result())
+    if sys.platform=="linux":
+        os.system('./darknet detector test '+paths.get_obj_data()+' '+paths.get_cfg_file()+' '+paths.get_weight_file()+' -ext_output '+path_image+' > '+paths.send_result())
+    elif sys.platform=="win32":
+        os.system('darknet.exe detector test '+paths.get_obj_data()+' '+paths.get_cfg_file()+' '+paths.get_weight_file()+' -ext_output '+path_image+' > '+paths.send_result())
+    
     
     path=paths.send_result()
     bbox_rects = coordonee(path)
@@ -63,11 +69,61 @@ def do_object_detection(layer,path_darknet):
 # ./darknet detect /home/irhs/Documents/Herearii/napari-apple/src/napari_apple/main_folder/yolov4-tiny-train.cfg /home/irhs/Documents/Herearii/napari-apple/src/napari_apple/weight-darknet/yolov4-tiny-train_best.weights /home/irhs/Downloads/Apple.jpg
 
 @magic_factory(call_button="Run",filename={"label": "Pick a file:"})
-def do_image_detection(filename=pathlib.Path.cwd(),path_darknet="Path darknet") -> typing.List[napari.types.LayerDataTuple]:
-    if os.path.isdir(path_darknet):
-      return do_object_detection(filename,path_darknet)
+def do_image_detection(filename=pathlib.Path.cwd(),string="Path darknet") -> typing.List[napari.types.LayerDataTuple]:
+    # /home/g-laris89/Documents/darknet
+    print(string,os.path.isdir(string))
+    if os.path.isdir(string):
+      return do_object_detection(filename,string)
     else:
       show_info("darknet not found")
     # path_darknet = "/home/irhs/Documents/Herearii/darknet"
     # /home/g-laris89/Documents/darknet
     # /home/g-laris89/Documents/napari-apple/src/napari_apple/main_folder/yolov4-tiny-train.cfg
+
+def change_u1(u1):
+    new_u1 = np.zeros(u1.shape)
+    new_u2 = np.zeros(u1.shape)
+    for i in range(4):
+        new_u1[i,0]=u1[i,1]
+        new_u1[i,1]=u1[i,0]
+    for i in range(3,-1,-1):
+        new_u2[3-i]=new_u1[i]
+    return new_u2
+
+def get_data_coord(u1):
+    x1 = u1[2,1]
+    x2 = u1[0,1]
+    y1 = u1[0,0]
+    y2 = u1[1,0]
+    width = x2-x1
+    heigh = y2-y1
+    cx = width/2
+    cy = heigh/2
+    return cx,cy,heigh,width
+
+
+@magic_factory(call_button="Export",layout="vertical")
+def save_as_zip(layer: ShapesData):
+    save_button = QPushButton("Save")
+    filename, _ = QFileDialog.getSaveFileName(save_button, "Save", ".", "csv")
+    import pandas as pd
+    CX = []
+    CY = []
+    HGH = []
+    WDTH = []
+    for current_un in layer:
+        if current_un[0,0]==current_un[1,0]:
+            current_un=change_u1(current_un)
+        # print(current_un)
+        cx,cy,heigh,width = get_data_coord(current_un)
+        CX.append(np.round(cx,2))
+        CY.append(np.round(cy,2))
+        HGH.append(np.round(heigh,2))
+        WDTH.append(np.round(width,2))
+    
+    df = pd.DataFrame({'center_x':CX,'center_y':CY,'heigh':HGH,'width':WDTH})
+    df.to_csv(filename)  
+    show_info('Export')
+        
+    
+    
