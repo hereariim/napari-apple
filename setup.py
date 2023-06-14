@@ -7,7 +7,7 @@ setup(
     author_email="herearii.metuarea@gmail.com",
     name='napari-apple', 
     description='Detection of apple based on YOLOv4 model',  
-    version="0.0.4",    
+    version="0.0.5",    
     long_description=long_description, 
     long_description_content_type="text/markdown",  
     url='https://github.com/hereariim/napari-apple', 
