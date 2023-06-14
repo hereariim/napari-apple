@@ -60,7 +60,7 @@ def do_object_detection(layer,path_darknet):
     
     path=paths.send_result()
     bbox_rects = coordonee(path)
-    show_info(f"DETECTION {len(bbox_rects)} apple")
+    show_info(f"{len(bbox_rects)} apple detected")
     text_parameters = {
     'size': 12,
     'color': 'green'}
@@ -69,11 +69,11 @@ def do_object_detection(layer,path_darknet):
 # ./darknet detect /home/irhs/Documents/Herearii/napari-apple/src/napari_apple/main_folder/yolov4-tiny-train.cfg /home/irhs/Documents/Herearii/napari-apple/src/napari_apple/weight-darknet/yolov4-tiny-train_best.weights /home/irhs/Downloads/Apple.jpg
 
 @magic_factory(call_button="Run",filename={"label": "Pick a file:"})
-def do_image_detection(filename=pathlib.Path.cwd(),string="Path darknet") -> typing.List[napari.types.LayerDataTuple]:
+def do_image_detection(filename=pathlib.Path.cwd(),Darknet="Path darknet") -> typing.List[napari.types.LayerDataTuple]:
     # /home/g-laris89/Documents/darknet
-    print(string,os.path.isdir(string))
-    if os.path.isdir(string):
-      return do_object_detection(filename,string)
+    print(Darknet,os.path.isdir(Darknet))
+    if os.path.isdir(Darknet):
+      return do_object_detection(filename,Darknet)
     else:
       show_info("darknet not found")
     # path_darknet = "/home/irhs/Documents/Herearii/darknet"
