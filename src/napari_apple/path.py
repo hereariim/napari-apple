@@ -19,7 +19,7 @@ def send_result():
 def get_weight_file():
      first = os.path.join(get_base_dir(),"napari_apple")
      second = os.path.join(first,"weight-darknet")
-     return os.path.join(second,"yolov4-tiny-train_best.weights")
+     return os.path.join(second,'yolov4-tiny-960.h5')
 
 def get_obj_data():
      first = os.path.join(get_base_dir(),"napari_apple")
