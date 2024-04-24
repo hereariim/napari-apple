@@ -7,7 +7,7 @@
 [![codecov](https://codecov.io/gh/hereariim/napari-apple/branch/main/graph/badge.svg)](https://codecov.io/gh/hereariim/napari-apple)
 [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-apple)](https://napari-hub.org/plugins/napari-apple)
 
-Detection of apple based on YOLOv4 model
+Detection of apple based on YOLOv4-tiny model
 
 ----------------------------------
 
@@ -23,9 +23,7 @@ https://napari.org/plugins/index.html
 
 ## Installation
 
-First, please note that this module **only works** on a Linux Ubuntu system. Indeed, the launch of the YOLO module is a command that is executed on a Linux Ubuntu system.
-
-Before you can operate the module, you must install the `napari-apple` module and Darknet on your machine.
+Before you can operate the module, you must install the `napari-apple` module.
 
 ### Instruction for napari-module
 
