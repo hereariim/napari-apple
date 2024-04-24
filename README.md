@@ -37,15 +37,18 @@ To install latest development version :
 
     pip install git+https://github.com/hereariim/napari-apple.git
 
-### Instruction Darknet
+## How does it works
 
-Darknet is the module where the pre-trained YOLO model is located. You can install Darknet by running this command:
+Here, user drop its images in the napari windows. The plugin shows two widgets : 
+- Image detection
+- Export data
 
-    git clone https://github.com/pjreddie/darknet
-    cd darknet
-    make
-    
-When Darknet is installed, you have to put the weights of the apple detection model in the cfg subfolder. You find the weights in the weight-darknet folder. 
+In Image detection, user select the interesting layer to detect apple. The "Run" button run the inference detection based on Yolov4-tiny model. At the end, the result is displayed on screen. User can correct freely the detection by removing or adding box in image.
+
+In Export data, user export select the interesting shape layer and RGB image. A button "Save to csv" save bounding box coordinate in Yolo way into a text file.
+
+![Capture d'écran 2024-04-24 114340](https://github.com/hereariim/napari-apple/assets/93375163/d8873a6a-8ebb-4686-bfe9-e7e7729378b1)
+
 
 ## Contributing
 
